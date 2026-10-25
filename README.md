@@ -1,43 +1,43 @@
-# 🔐 Cybersecurity Lab Setup
+# Cybersecurity Lab Setup | NetworkWalks Week 1
 
-**NetworkWalks Cybersecurity Internship | Week 1**
+**By Revathi G.**  
+Cybersecurity | VAPT | Hands-on Lab Practice
 
-A practical cybersecurity lab environment using Kali Linux and Oracle VirtualBox, with documented configuration and network connectivity verification.
+## About This Project
 
----
+Hi, I'm Revathi, and I'm building my practical skills in cybersecurity, with an interest in Vulnerability Assessment and Penetration Testing (VAPT).
 
-## 📌 Project Overview
+As part of my **NetworkWalks Cybersecurity Internship — Week 1**, I worked on a Kali Linux lab running inside Oracle VirtualBox. I explored the network configuration, tested connectivity, and documented the process with screenshots.
 
-This project documents a cybersecurity lab environment running Kali Linux inside Oracle VirtualBox. It covers host system specifications, virtual machine configuration, network settings, basic connectivity testing, and troubleshooting.
+This project is part of my hands-on cybersecurity learning journey.
 
-The lab provides an environment for learning networking concepts and practicing cybersecurity techniques in an authorized setting.
+## What I Worked On
 
-## 🎯 Objectives
+- Reviewed the Kali Linux virtual machine configuration.
+- Checked the VirtualBox network settings.
+- Identified the network interface and IPv4 address.
+- Inspected the routing table and default gateway.
+- Tested network connectivity using `ping`.
+- Used NetworkManager commands during troubleshooting.
+- Documented the steps and results with screenshots.
 
-- Document the host system and virtualization environment.
-- Identify the Kali Linux operating system version.
-- Configure and document virtual network settings.
-- Identify the network interface, IP address, and default gateway.
-- Verify connectivity to the default gateway and an external IP address.
-- Record troubleshooting activities and verification evidence.
-
-## ⚙️ Lab Environment
+## Lab Environment
 
 ### Host System
 
 | Component | Details |
 |---|---|
-| Host Operating System | Windows 11 Pro |
-| Host RAM | 8 GB |
+| Operating System | Windows 11 Pro |
+| RAM | 8 GB |
 | Processor | AMD Ryzen 5 |
-| Hypervisor | Oracle VirtualBox 7.2.10 |
+| Virtualization Software | Oracle VirtualBox 7.2.10 |
 
-### Virtual Machine Configuration
+### Kali Linux Virtual Machine
 
 | Component | Details |
 |---|---|
-| Guest Operating System | Kali GNU/Linux Rolling |
-| Kali Linux Version | 2026.1 |
+| Operating System | Kali GNU/Linux Rolling |
+| Version | 2026.1 |
 | Allocated RAM | 2471 MB |
 | Network Mode | NAT Network |
 | Network Interface | `eth0` |
@@ -45,28 +45,43 @@ The lab provides an environment for learning networking concepts and practicing 
 | Default Gateway | `10.0.0.1` |
 | DNS Server | `8.8.8.8` |
 
+## 1. VirtualBox Network Settings
 
-## 🧪 Lab Verification
+I reviewed the virtual machine's network configuration in Oracle VirtualBox.
 
-Network connectivity was checked using standard Linux networking commands.
+**Screenshot:**
 
-### Step 1: Verify Operating System
+![VirtualBox Network Settings](screenshots/1%20VirtualBox%20Network%20Settings.png)
 
-**Command:**
+## 2. Kali Linux Environment
+
+This screenshot shows the Kali Linux environment used for the lab.
+
+**Screenshot:**
+
+![Kali Linux Installed](screenshots/2%20Kali%20Linux%20Installed.png)
+
+## 3. Kali Linux Network Settings
+
+I checked the network settings and identified the `eth0` interface and its IPv4 address.
+
+**Screenshot:**
+
+![Kali Network Settings](screenshots/3%20Kali%20Network%20Settings.png)
+
+## 4. Network Testing and Verification
+
+I used Linux networking commands to check the interface configuration and test connectivity.
+
+### Check the operating system
 
 ```bash
 cat /etc/os-release
 ```
 
-**Observed details:**
+This command displays information about the operating system and its version.
 
-- Distribution: Kali GNU/Linux Rolling
-- Version: 2026.1
-- Codename: kali-rolling
-
-### Step 2: Inspect Network Interfaces
-
-**Command:**
+### Check the network interface
 
 ```bash
 ip -br addr
@@ -74,82 +89,47 @@ ip -br addr
 
 **Observed `eth0` configuration:**
 
-| Parameter | Result |
+| Detail | Result |
 |---|---|
 | Interface | `eth0` |
 | Status | UP |
 | IPv4 Address | `10.0.0.2/24` |
 
-### Step 3: Inspect the Routing Table
-
-**Command:**
+### Check the routing table
 
 ```bash
 ip route
 ```
 
-**Observed route for `eth0`:**
+I used this command to inspect the configured routes and understand how network traffic is directed.
 
-```text
-10.0.0.0/24 dev eth0
-default via 10.0.0.1 dev eth0
-```
+For `eth0`, the observed network was `10.0.0.0/24`, with gateway `10.0.0.1`.
 
-The routing table also contained another default route through a separate interface. This README focuses on `eth0` as requested.
-
-### Step 4: Verify Default Gateway Connectivity
-
-**Command:**
+### Test the gateway connection
 
 ```bash
 ping -c 3 10.0.0.1
 ```
 
-**Observed result:**
+**Result:** 3 packets received, with 0% packet loss.
 
-- Packets transmitted: 3
-- Packets received: 3
-- Packet loss: 0%
-
-**Status:** Successful.
-
-### Step 5: Verify External IP Connectivity
-
-**Command:**
+### Test external IP connectivity
 
 ```bash
 ping -c 3 8.8.8.8
 ```
 
-**Observed result:**
+**Result:** 3 packets received, with 0% packet loss.
 
-- Packets transmitted: 3
-- Packets received: 3
-- Packet loss: 0%
+Both tests were successful when I ran them. The external IP test confirmed connectivity to that IP address; DNS name resolution was not independently tested.
 
-**Status:** Successful.
+### Lab Verification Screenshot
 
-### 6. Lab Verification Evidence
+![Lab Verification Results](screenshots/5%20Lab%20Verifications.png)
 
-The following screenshot provides evidence of the network interface details and successful connectivity checks to the gateway and external IP address.
+## 5. Network Troubleshooting
 
-![Kali Linux Lab Verification](screenshots/lab-verification.png)
-
-### Verification Summary
-
-| Verification | Result |
-|---|---|
-| Operating System Identification | Verified |
-| Network Interface Identification | Verified |
-| IPv4 Address Identification | Verified |
-| Default Gateway Connectivity | Successful |
-| External IP Connectivity | Successful |
-
-*Note: These results reflect the captured terminal output. DNS name resolution has not been independently verified.*
-
-## 🛠️ Network Troubleshooting
-
-The following NetworkManager commands were used during troubleshooting:
+During troubleshooting, I used NetworkManager commands to modify a connection setting and reactivate the connection.
 
 ```bash
 sudo nmcli connection modify "Wired connection 1" ipv4.dad-timeout 0
@@ -157,47 +137,45 @@ sudo nmcli connection down "Wired connection 1"
 sudo nmcli connection up "Wired connection 1"
 ```
 
-The captured terminal output showed that the connection was deactivated and subsequently activated.
+These commands were used to update the connection setting and bring the specified connection down and back up.
 
-### Troubleshooting Evidence
+### Troubleshooting Screenshot
 
-![Kali Linux Network Troubleshooting](screenshots/network-troubleshooting.png)
+![Network Troubleshooting](screenshots/4%20Fixing%20Internet%20Connectivity%20Issues%20for%20Kali%202026.png)
 
-## 💡 Key Learnings
+## What I Learned
 
-- Identifying the Kali Linux operating system and version.
-- Understanding host and guest system configurations.
-- Reviewing virtual network adapter settings in Oracle VirtualBox.
-- Inspecting network interfaces and IPv4 addressing.
-- Understanding default gateway configuration and routing.
-- Using `ping` to verify network connectivity.
-- Using Linux commands to inspect network configuration.
-- Documenting troubleshooting steps and technical evidence.
+Through this task, I gained practical experience with:
 
-## 🔐 Security and Ethical Considerations
+- Kali Linux and Oracle VirtualBox.
+- Virtual machine network configuration.
+- Linux network interfaces and IPv4 addressing.
+- Routing tables and default gateways.
+- Testing connectivity using `ping`.
+- Using `ip`, `ping`, and `nmcli` commands.
+- Recording technical steps and results with screenshots.
 
-- Perform security testing only on systems for which explicit authorization has been granted.
-- Use controlled lab environments for cybersecurity practice.
-- Follow responsible disclosure practices when identifying vulnerabilities.
-- Avoid unauthorized access to networks, systems, or services.
+## Security and Ethical Practice
 
-## 📚 References
+Cybersecurity testing should always be performed with proper authorization. I aim to use these skills responsibly in controlled lab environments and on systems where testing is explicitly permitted.
 
-- [Kali Linux Official Website](https://www.kali.org/)
-- [Oracle VirtualBox Official Website](https://www.virtualbox.org/)
+## Tools Used
+
+- Kali Linux
+- Oracle VirtualBox
+- Linux Terminal
+- NetworkManager
+
+## References
+
+- [Kali Linux](https://www.kali.org/)
+- [Oracle VirtualBox](https://www.virtualbox.org/)
 - [NetworkWalks Sample Repository](https://github.com/waqaskarimccie/NETWORKWALKS-B082-WK1-PM1-CYBERSECURITY-LAB-SETUP-SAMPLE)
-
-## 📌 Project Information
-
-| Field | Details |
-|---|---|
-| Program | NetworkWalks Cybersecurity Internship |
-| Week | Week 1 |
-| Task | Cybersecurity Lab Setup |
-| Platform | GitHub |
 
 ---
 
-**Week 1 — Cybersecurity Lab Setup**
+**Author:** Revathi G.  
+**Program:** NetworkWalks Cybersecurity Internship  
+**Task:** Week 1 — Cybersecurity Lab Setup
 
-*Documenting the lab environment and verifying basic network connectivity as part of cybersecurity learning and practical skill development.*
+*Learning by doing. Improving one lab at a time.*
